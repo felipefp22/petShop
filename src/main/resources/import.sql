@@ -1,0 +1,5 @@
+INSERT INTO tb_produtos (id, nome, descricao, preco, url_imagem) VALUES ('852b168d-668e-4220-8af8-32b3dc5b0fcc', 'Ração Barata', 'Generico', 40.99, 'URL 1');
+INSERT INTO tb_produtos (id, nome, descricao, preco, url_imagem) VALUES ('2fa33c22-de80-443d-8ec4-47f3f3c10479', 'Aparador para Gatos', 'Divertida', 60.99, 'URL 2');
+INSERT INTO tb_produtos (id, nome, descricao, preco, url_imagem) VALUES ('2f32154a-bef9-412d-94be-e1769e993fc2', 'Ração TOP', 'Marca TOP', 119.99, 'URL 3');
+INSERT INTO tb_produtos (id, nome, descricao, preco, url_imagem) VALUES ('0b669c58-4e4e-4e24-bebc-c7a4763fbeca', 'Pote de Comida', 'Tupuwere', 88.99, 'URL 4');
+INSERT INTO tb_produtos (id, nome, descricao, preco, url_imagem) VALUES ('efbf9aca-7d55-47dc-a6a4-8dfbc6d2d4d0', 'Bolinha Para cães', 'Divertida', 14.99, 'URL 5');
