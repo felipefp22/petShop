@@ -10,7 +10,7 @@ public interface IPessoaRepository {
 
     Pessoa findById (Long id);
 
-    Pessoa Save(Pessoa pessoa);
+    Pessoa save(Pessoa pessoa);
     Pessoa update(Long id, Pessoa pessoa);
 
     void deleteById(Long id);

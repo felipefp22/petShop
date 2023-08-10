@@ -1,12 +1,14 @@
 package com.example.petShop.petShop.dominio.pessoa.repository;
 
 import com.example.petShop.petShop.dominio.pessoa.entity.Pessoa;
+import com.example.petShop.petShop.dominio.produto.service.exception.ControllerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLData;
 import java.sql.SQLException;
@@ -30,22 +32,55 @@ public class PessoaRepository implements IPessoaRepository {
 
     @Override
     public Pessoa findById(Long id) {
-        return null;
+        String sql = "SELECT * FROM pessoas WHERE ID = ?";
+        List<Pessoa> pessoas =jdbcTemplate.query(sql, new Object[]{id}, new PessoaRowMapper());
+        return pessoas.isEmpty() ? null : pessoas.get(0);
     }
 
     @Override
-    public Pessoa Save(Pessoa pessoa) {
-        return null;
+    public Pessoa save(Pessoa pessoa) {
+        try{
+            String sql = "INSERT INTO pessoas (cpf, nome, nascimento, email) VALUES (?, ?, ?, ?)";
+            this.jdbcTemplate.update(
+                    sql,
+                    pessoa.getCpf(),
+                    pessoa.getNome(),
+                    Date.valueOf(pessoa.getNascimento()),
+                    pessoa.getEmail()
+            );
+            return pessoa;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Pessoa update(Long id, Pessoa pessoa) {
-        return null;
+        String sql = "UPDATE pessoas SET cpf = ?, nome = ?, nascimento = ?, email = ? WHERE id = ?";
+        int rowAffected = jdbcTemplate.update(
+                sql,
+                pessoa.getCpf(),
+                pessoa.getNome(),
+                pessoa.getNascimento(),
+                pessoa.getEmail(),
+                id
+        );
+        if (rowAffected == 0){
+            throw new ControllerNotFoundException("Pessoa com ID " + id + " não encontrado");
+        }else {
+            return pessoa;
+        }
     }
 
     @Override
     public void deleteById(Long id) {
+        String sql = "DELETE FROM pessoas WHERE id = ?";
 
+        int rowAffected = jdbcTemplate.update(sql, id);
+
+        if (rowAffected == 0) {
+            throw new ControllerNotFoundException("Pessoa com ID " + id + " não encontrado");
+        }
     }
 
     public static class PessoaRowMapper implements RowMapper<Pessoa> {
