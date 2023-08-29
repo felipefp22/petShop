@@ -1,8 +1,11 @@
 package com.example.petShop.petShop.dominio.produto.entity;
 
+import com.example.petShop.petShop.dominio.categoria.entity.Categoria;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 @Entity
 @Table(name="tb_produtos")
@@ -15,11 +18,18 @@ public class Produto {
     private String urlImagem;
     private double preco;
 
-    public Produto(String nome, String descricao, String urlImagem, double preco) {
+    @ManyToMany
+    @JoinTable(name = "tb_produto_categoria",
+                joinColumns = @JoinColumn(name = "produto_id"),
+                inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    Set<Categoria> categorias = new HashSet<>();
+
+    public Produto(String nome, String descricao, String urlImagem, double preco, Set<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.urlImagem = urlImagem;
         this.preco = preco;
+        this.categorias = categorias;
     }
     public Produto(){}
 
@@ -61,6 +71,10 @@ public class Produto {
     public Produto setPreco(double preco) {
         this.preco = preco;
         return this;
+    }
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
     @Override

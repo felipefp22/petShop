@@ -1,10 +1,13 @@
 package com.example.petShop.petShop.dominio.categoria.entity;
 
 import com.example.petShop.petShop.dominio.categoria.entity.dtos.CategoriaDTO;
+import com.example.petShop.petShop.dominio.produto.entity.Produto;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="tb_categoria")
@@ -19,11 +22,21 @@ public class Categoria {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant dataDeCriacao;
 
+    @ManyToMany(mappedBy = "categorias")
+    private Set<Produto> produtos = new HashSet<>();
+
     public Categoria() {}
-    public Categoria(Long id, String nome, Instant dataDeCriacao) {
-        id = id;
+    public Categoria(Long id, String nome, Instant dataDeCriacao, Set<Produto> produtos) {
+        this.id = id;
         this.nome = nome;
         this.dataDeCriacao = dataDeCriacao;
+        this.produtos = produtos;
+    }
+    public Categoria(CategoriaDTO categoriaDTO){
+        this.id = categoriaDTO.id();
+        this.nome = categoriaDTO.nome();
+        this.dataDeCriacao = categoriaDTO.dataDeCriacao();
+        this.produtos = categoriaDTO.produtos();
     }
 
     public Long getId() {
@@ -46,6 +59,14 @@ public class Categoria {
     }
     public Categoria setDataDeCriacao(Instant dataDeCriacao) {
         this.dataDeCriacao = dataDeCriacao;
+        return this;
+    }
+    public Set<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public Categoria setProdutos(Set<Produto> produtos) {
+        this.produtos = produtos;
         return this;
     }
 
