@@ -1,4 +1,4 @@
-package com.example.petShop.petShop.dominio.produto.service.exception;
+package com.example.petShop.petShop.exception.Service;
 
 import java.time.Instant;
 

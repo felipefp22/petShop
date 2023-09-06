@@ -1,4 +1,4 @@
-package com.example.petShop.petShop.dominio.produto.controller.exception;
+package com.example.petShop.petShop.exception.Controller;
 
 public class ValidacaoCampo {
 

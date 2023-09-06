@@ -1,9 +1,9 @@
 package com.example.petShop.petShop.dominio.produto.service;
 
-import com.example.petShop.petShop.dominio.produto.dto.ProdutoDTO;
+import com.example.petShop.petShop.dominio.produto.entity.dtoS.ProdutoDTO;
 import com.example.petShop.petShop.dominio.produto.entity.Produto;
 import com.example.petShop.petShop.dominio.produto.repository.IProdutoRepository;
-import com.example.petShop.petShop.dominio.produto.service.exception.ControllerNotFoundException;
+import com.example.petShop.petShop.exception.Service.ControllerNotFoundException;
 import com.example.petShop.petShop.testes.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

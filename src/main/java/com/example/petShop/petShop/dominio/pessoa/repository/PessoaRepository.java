@@ -1,7 +1,7 @@
 package com.example.petShop.petShop.dominio.pessoa.repository;
 
 import com.example.petShop.petShop.dominio.pessoa.entity.Pessoa;
-import com.example.petShop.petShop.dominio.produto.service.exception.ControllerNotFoundException;
+import com.example.petShop.petShop.exception.Service.ControllerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLData;
 import java.sql.SQLException;
 import java.util.List;
 

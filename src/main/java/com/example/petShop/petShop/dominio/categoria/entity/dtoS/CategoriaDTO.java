@@ -1,10 +1,9 @@
-package com.example.petShop.petShop.dominio.categoria.entity.dtos;
+package com.example.petShop.petShop.dominio.categoria.entity.dtoS;
 
 import com.example.petShop.petShop.dominio.categoria.entity.Categoria;
 import com.example.petShop.petShop.dominio.produto.entity.Produto;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 
 public record CategoriaDTO(
@@ -16,6 +15,6 @@ public record CategoriaDTO(
 
     ){
     public CategoriaDTO(Categoria categoria) {
-        this(categoria.getId(), categoria.getNome(), categoria.getDataDeCriacao());
+        this(categoria.getId(), categoria.getNome(), categoria.getDataDeCriacao(), categoria.getProdutos());
     }
 }

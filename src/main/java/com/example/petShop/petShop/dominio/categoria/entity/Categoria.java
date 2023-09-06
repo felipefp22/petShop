@@ -1,6 +1,6 @@
 package com.example.petShop.petShop.dominio.categoria.entity;
 
-import com.example.petShop.petShop.dominio.categoria.entity.dtos.CategoriaDTO;
+import com.example.petShop.petShop.dominio.categoria.entity.dtoS.CategoriaDTO;
 import com.example.petShop.petShop.dominio.produto.entity.Produto;
 import jakarta.persistence.*;
 
@@ -39,6 +39,18 @@ public class Categoria {
         this.produtos = categoriaDTO.produtos();
     }
 
+    public CategoriaDTO toCategoriaDTO(){
+        return new CategoriaDTO(this.id, this.nome, this.dataDeCriacao, this.produtos);
+    }
+
+    public void prePersist(){
+        this.dataDeCriacao = Instant.now();
+    }
+
+
+    // ------------------------------------------------- \\
+
+    // ---------- *** GETTERs e SETTERs *** ---------- \\
     public Long getId() {
         return id;
     }
@@ -70,6 +82,10 @@ public class Categoria {
         return this;
     }
 
+    // ------------------------------------------------- \\
+
+
+    // ---------- *** EQUALs | HASH | toSTRING *** ---------- \\
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,11 +98,7 @@ public class Categoria {
         return Objects.hash(id);
     }
 
-    public CategoriaDTO toCategoriaDTO(){
-        return new CategoriaDTO(this.id, this.nome, this.dataDeCriacao);
-    }
+    // ------------------------------------------------- \\
 
-    public void prePersist(){
-        this.dataDeCriacao = Instant.now();
-    }
+
 }

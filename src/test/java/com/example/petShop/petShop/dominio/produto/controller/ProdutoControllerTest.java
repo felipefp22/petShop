@@ -1,7 +1,6 @@
 package com.example.petShop.petShop.dominio.produto.controller;
 
-import com.example.petShop.petShop.dominio.produto.dto.ProdutoDTO;
-import com.example.petShop.petShop.dominio.produto.entity.Produto;
+import com.example.petShop.petShop.dominio.produto.entity.dtoS.ProdutoDTO;
 import com.example.petShop.petShop.dominio.produto.service.ProdutoService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,6 +1,6 @@
 package com.example.petShop.petShop.dominio.categoria.controller;
 
-import com.example.petShop.petShop.dominio.categoria.entity.dtos.CategoriaDTO;
+import com.example.petShop.petShop.dominio.categoria.entity.dtoS.CategoriaDTO;
 import com.example.petShop.petShop.dominio.categoria.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

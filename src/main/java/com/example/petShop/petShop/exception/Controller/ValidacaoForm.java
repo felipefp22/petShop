@@ -1,6 +1,6 @@
-package com.example.petShop.petShop.dominio.produto.controller.exception;
+package com.example.petShop.petShop.exception.Controller;
 
-import com.example.petShop.petShop.dominio.produto.service.exception.DefaultError;
+import com.example.petShop.petShop.exception.Service.DefaultError;
 
 import java.util.ArrayList;
 import java.util.List;

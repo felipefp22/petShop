@@ -1,8 +1,8 @@
-package com.example.petShop.petShop.dominio.produto.controller.exception;
+package com.example.petShop.petShop.exception.Controller;
 
-import com.example.petShop.petShop.dominio.produto.service.exception.ControllerNotFoundException;
-import com.example.petShop.petShop.dominio.produto.service.exception.DatabaseException;
-import com.example.petShop.petShop.dominio.produto.service.exception.DefaultError;
+import com.example.petShop.petShop.exception.Service.ControllerNotFoundException;
+import com.example.petShop.petShop.exception.Service.DatabaseException;
+import com.example.petShop.petShop.exception.Service.DefaultError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

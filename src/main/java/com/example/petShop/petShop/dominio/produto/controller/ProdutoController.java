@@ -1,20 +1,16 @@
 package com.example.petShop.petShop.dominio.produto.controller;
 
-import com.example.petShop.petShop.dominio.produto.dto.ProdutoDTO;
-import com.example.petShop.petShop.dominio.produto.entity.Produto;
+import com.example.petShop.petShop.dominio.produto.entity.dtoS.ProdutoDTO;
 import com.example.petShop.petShop.dominio.produto.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

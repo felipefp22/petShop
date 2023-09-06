@@ -1,13 +1,12 @@
 package com.example.petShop.petShop.dominio.produto.service;
 
 import com.example.petShop.petShop.dominio.categoria.entity.Categoria;
-import com.example.petShop.petShop.dominio.categoria.entity.dtos.CategoriaDTO;
 import com.example.petShop.petShop.dominio.categoria.repository.ICategoriaRepository;
-import com.example.petShop.petShop.dominio.produto.dto.ProdutoDTO;
+import com.example.petShop.petShop.dominio.produto.entity.dtoS.ProdutoDTO;
 import com.example.petShop.petShop.dominio.produto.entity.Produto;
 import com.example.petShop.petShop.dominio.produto.repository.IProdutoRepository;
-import com.example.petShop.petShop.dominio.produto.service.exception.ControllerNotFoundException;
-import com.example.petShop.petShop.dominio.produto.service.exception.DatabaseException;
+import com.example.petShop.petShop.exception.Service.ControllerNotFoundException;
+import com.example.petShop.petShop.exception.Service.DatabaseException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
@@ -28,23 +29,20 @@ public class ProdutoService {
     public Page<ProdutoDTO> findAll(PageRequest pagina){
         var produtos = produtoRepo.findAll(pagina);
 
-        return produtos.map(produto -> new ProdutoDTO(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco()));
+        return produtos.map(produto -> new ProdutoDTO(produto.getId(), produto.getNome(), produto.getDescricao(), null, produto.getCategorias(), produto.getPreco()));
     }
 
     public ProdutoDTO findById(UUID id){
         var produto = produtoRepo.findById(id).orElseThrow(() -> new ControllerNotFoundException("Produto não Encontrado"));
 
-        return new ProdutoDTO(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco());
+        return new ProdutoDTO(produto);
     }
 
     public ProdutoDTO save(ProdutoDTO produtoDTO) {
-        Produto entity = new Produto();
-        entity.setNome(produtoDTO.nome());
-        entity.setDescricao(produtoDTO.descricao());
-        entity.setPreco(produtoDTO.preco());
 
-        produtoRepo.save(entity);
-        return new ProdutoDTO(entity.getId(), entity.getNome(), produtoDTO.descricao(), entity.getPreco());
+        Produto entity = produtoDTO.toProduto();
+
+        return new ProdutoDTO(produtoRepo.save(entity));
     }
 
     public ProdutoDTO update(UUID id, ProdutoDTO produtoDTO){
@@ -54,10 +52,11 @@ public class ProdutoService {
             buscaProduto.setNome(produtoDTO.nome());
             buscaProduto.setDescricao(produtoDTO.descricao());
             buscaProduto.setPreco(produtoDTO.preco());
-            produtoDTO.categorias().forEach(categoria -> buscaProduto.getCategorias().add(new Categoria(categoria)));
-            buscaProduto = produtoRepo.save(buscaProduto);
 
-            return new ProdutoDTO(buscaProduto.getId(), buscaProduto.getNome(), buscaProduto.getDescricao(), buscaProduto.getPreco(), buscaProduto.getCategorias());
+            Set<Categoria> categorias = convetCategorias(produtoDTO);
+            categorias.forEach(categoria -> buscaProduto.getCategorias().add((categoria)));
+
+            return new ProdutoDTO(produtoRepo.save(buscaProduto));
         }catch (EntityNotFoundException e){
             throw new ControllerNotFoundException("Produto não Encontrado");
         }
@@ -71,5 +70,17 @@ public class ProdutoService {
         }catch (DataIntegrityViolationException e){
             throw new DatabaseException("Violação de Integridade da Base");
         }
+    }
+
+    public Set<Categoria> convetCategorias(ProdutoDTO produtoDTO){
+        Set<Categoria> categorias = produtoDTO.categorias();
+
+        if (produtoDTO.categorias() != null)
+            categorias = produtoDTO.categorias().stream()
+                    .map(categoriaId -> categoriaRepo.findById(categoriaId.getId())
+                            .orElseThrow(() -> new RuntimeException("Consumidor não encontrado com ID: " + categoriaId.getId())))
+                    .collect(Collectors.toSet());
+
+        return categorias;
     }
 }

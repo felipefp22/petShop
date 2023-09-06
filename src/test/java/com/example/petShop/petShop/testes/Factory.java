@@ -1,6 +1,6 @@
 package com.example.petShop.petShop.testes;
 
-import com.example.petShop.petShop.dominio.produto.dto.ProdutoDTO;
+import com.example.petShop.petShop.dominio.produto.entity.dtoS.ProdutoDTO;
 import com.example.petShop.petShop.dominio.produto.entity.Produto;
 
 public class Factory {

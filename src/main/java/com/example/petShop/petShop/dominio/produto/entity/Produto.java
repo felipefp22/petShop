@@ -16,15 +16,14 @@ public class Produto {
     private String nome;
     private String descricao;
     private String urlImagem;
-    private double preco;
-
     @ManyToMany
     @JoinTable(name = "tb_produto_categoria",
-                joinColumns = @JoinColumn(name = "produto_id"),
-                inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     Set<Categoria> categorias = new HashSet<>();
+    private double preco;
 
-    public Produto(String nome, String descricao, String urlImagem, double preco, Set<Categoria> categorias) {
+    public Produto(String nome, String descricao, String urlImagem, double Doupreco, Set<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.urlImagem = urlImagem;
